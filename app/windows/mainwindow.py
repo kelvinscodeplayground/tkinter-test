@@ -8,11 +8,14 @@ class MainWindow:
     __app_icon_path = fs.create_path("/assets/icons/tools.png")
 
     app: tk.Tk
+    label: tk.Label
 
     def __init__(self):
         self.app = tk.Tk()
         self.app.title("My Tkinter App")
         self.app.geometry(f"{self.__window_size[0]}x{self.__window_size[1]}")
+
+        self.__initialize_ui()
         self.__center_window()
         self.__set_app_icon()
 
@@ -20,6 +23,13 @@ class MainWindow:
         self.app.mainloop()
 
     # Private methods
+    def __initialize_ui(self):
+        # initialize lablel, then set it to aligned left
+        self.label = tk.Label(
+            self.app, text="Hello, Tkinter!", anchor="w", justify="left"
+        )
+        self.label.pack(side="left", anchor="nw", fill="x")
+
     def __center_window(self):
         screen_width = self.app.winfo_screenwidth()
         screen_height = self.app.winfo_screenheight()
