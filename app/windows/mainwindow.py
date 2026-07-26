@@ -29,9 +29,6 @@ class MainWindow:
 
     def __set_app_icon(self):
         try:
-            print(
-                f"Setting app icon from: {fs.get_abs_file_path(self.__app_icon_path)}"
-            )
             bitmap = tk.PhotoImage(file=fs.get_abs_file_path(self.__app_icon_path))
             self.app.wm_iconphoto(False, bitmap)
         except Exception as e:

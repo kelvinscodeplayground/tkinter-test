@@ -11,7 +11,8 @@ def get_abs_file_path(relative_path) -> str:
 
     Eg:
         - /assets/icons/tools.png -> /home/user/Document/app/assets/icons/tools.png
-        - ../assets/icons/tools.png -> /home/user/Document/app/assets/icons/tools.png
+        - ../assets/icons/tools.png -> /home/user/Document/assets/icons/tools.png
+        - assets/icons/tools.png -> /home/user/Document/app/assets/icons/tools.png
 
     Args:
         relative_path (str): The relative file path.
