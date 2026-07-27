@@ -87,7 +87,63 @@ class CalculatorWindow(ctk.CTk):
             self.__ui.number_line.insert(0, new_text)
 
     def __on_percent_button_click(self):
-        pass
+        current_text = self.__ui.number_line.get()
+
+        if current_text == "Error" or not current_text:
+            return
+
+        try:
+            # Check if any operator exists in the expression
+            ops = ["+", "-", "*", "/"]
+            found_op = None
+            op_index = -1
+
+            # Find the last operator used (to handle expressions like 50 + 75)
+            for op in ops:
+                idx = current_text.rfind(op)
+                if idx > op_index:
+                    op_index = idx
+                    found_op = op
+
+            if found_op is None:
+                # Scenario 2: No operator, just divide the whole number by 100
+                value = float(current_text) / 100
+                # Format to remove trailing .0 if it's a whole number
+                new_text = str(int(value)) if value.is_integer() else str(value)
+            else:
+                # Scenario 1: Operator exists (e.g., "75 + 5")
+                base_str = current_text[:op_index]
+                right_str = current_text[op_index + 1 :]
+
+                if not right_str:
+                    return  # Nothing after operator yet
+
+                base_value = float(base_str)
+                right_value = float(right_str)
+
+                # Calculate percentage based on operator type
+                if found_op in ("+", "-"):
+                    # e.g., 75 + (75 * 5 / 100)
+                    percentage_value = base_value * (right_value / 100)
+                else:
+                    # For multiplication/division, convert right side to a direct percentage factor (e.g., 5% -> 0.05)
+                    percentage_value = right_value / 100
+
+                # Reconstruct expression or evaluate directly
+                # Option A: Replace the right side with the computed percentage value so 'eval()' works cleanly
+                new_text = f"{base_str}{found_op}{percentage_value}"
+
+                # Optional: If you want it to evaluate immediately upon clicking %
+                new_text = str(eval(new_text))
+                if float(new_text).is_integer():
+                    new_text = str(int(float(new_text)))
+
+            self.__ui.number_line.delete(0, ctk.END)
+            self.__ui.number_line.insert(0, new_text)
+
+        except Exception:
+            self.__ui.number_line.delete(0, ctk.END)
+            self.__ui.number_line.insert(0, "Error")
 
     def __on_period_button_click(self):
         current_text = self.__ui.number_line.get()
