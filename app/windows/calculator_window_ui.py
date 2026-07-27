@@ -25,12 +25,13 @@ class CalculatorWindowUI:
         self.number_line = ctk.CTkEntry(
             window, font=("Arial", 50), justify="right", height=100
         )
+        self.number_line.insert(0, "0")
         self.number_line.pack(side="top", fill="x", padx=10, pady=10)
 
         self.__setup_number_pad(window)
 
     def __setup_number_pad(self, window: ctk.CTk):
-        # Create a frame to hold the digit buttons
+        font = ("Arial", 30)
         self.number_pad = ctk.CTkFrame(window)
 
         for i in range(4):
@@ -47,6 +48,7 @@ class CalculatorWindowUI:
                 button = ctk.CTkButton(
                     self.number_pad,
                     text=str(digit),
+                    font=font,
                 )
                 button.grid(row=i + 1, column=j, sticky="nsew", padx=5, pady=5)
                 self.digit_buttons.append(button)
@@ -55,6 +57,7 @@ class CalculatorWindowUI:
         self.zero_button = ctk.CTkButton(
             self.number_pad,
             text="0",
+            font=font,
         )
         self.zero_button.grid(
             row=4, column=0, columnspan=2, sticky="nsew", padx=5, pady=5
@@ -64,6 +67,7 @@ class CalculatorWindowUI:
         self.period_button = ctk.CTkButton(
             self.number_pad,
             text=".",
+            font=font,
         )
         self.period_button.grid(row=4, column=2, sticky="nsew", padx=5, pady=5)
 
@@ -72,6 +76,9 @@ class CalculatorWindowUI:
             button = ctk.CTkButton(
                 self.number_pad,
                 text=op,
+                # different colour if op is equal sign
+                fg_color="orange" if op == "=" else None,
+                font=font,
             )
             button.grid(
                 row=idx,
@@ -85,17 +92,20 @@ class CalculatorWindowUI:
         self.backspace_button = ctk.CTkButton(
             self.number_pad,
             text="⌫",
+            font=font,
         )
         self.backspace_button.grid(row=0, column=2, sticky="nsew", padx=5, pady=5)
 
         self.clear_button = ctk.CTkButton(
             self.number_pad,
             text="C",
+            font=font,
         )
         self.clear_button.grid(row=0, column=0, sticky="nsew", padx=5, pady=5)
 
         self.percent_button = ctk.CTkButton(
             self.number_pad,
             text="%",
+            font=font,
         )
         self.percent_button.grid(row=0, column=1, sticky="nsew", padx=5, pady=5)
