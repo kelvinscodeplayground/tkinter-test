@@ -15,7 +15,18 @@ class CalculatorWindow(ctk.CTk):
         self.__center_window()
 
         self.__ui = CalculatorWindowUI(self)
+        self.__setup_slots()
 
+    # private methods
+    def __center_window(self):
+        screen_width = self.winfo_screenwidth()
+        screen_height = self.winfo_screenheight()
+        x = (screen_width - self.__WINDOW_SIZE[0]) // 2
+        y = (screen_height - self.__WINDOW_SIZE[1]) // 2
+        self.geometry(f"{self.__WINDOW_SIZE[0]}x{self.__WINDOW_SIZE[1]}+{x}+{y}")
+        self.resizable(False, False)
+
+    def __setup_slots(self):
         for button in self.__ui.digit_buttons:
             button.configure(command=lambda b=button: self.__on_digit_button_click(b))
 
@@ -27,15 +38,6 @@ class CalculatorWindow(ctk.CTk):
             op_btn.configure(
                 command=lambda b=op_btn: self.__on_operation_button_click(b)
             )
-
-    # private methods
-    def __center_window(self):
-        screen_width = self.winfo_screenwidth()
-        screen_height = self.winfo_screenheight()
-        x = (screen_width - self.__WINDOW_SIZE[0]) // 2
-        y = (screen_height - self.__WINDOW_SIZE[1]) // 2
-        self.geometry(f"{self.__WINDOW_SIZE[0]}x{self.__WINDOW_SIZE[1]}+{x}+{y}")
-        self.resizable(False, False)
 
     # slots
     def __on_digit_button_click(self, button: ctk.CTkButton):
