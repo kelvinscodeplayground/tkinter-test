@@ -146,10 +146,6 @@ class CalculatorWindow(ctk.CTk):
     def __on_period_button_click(self):
         current_text = self.__ui.number_line.get()
 
-        # Prevent multiple periods in the current number
-        if "." in current_text.split()[-1]:
-            return
-
         new_text = current_text + "."
         self.__ui.number_line.delete(0, ctk.END)
         self.__ui.number_line.insert(0, new_text)
