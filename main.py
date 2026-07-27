@@ -1,8 +1,10 @@
-from app.windows.mainwindow import MainWindow
+from app.windows.calculator_window import CalculatorWindow
+
+# from app.windows.mainwindow import MainWindow
 
 
 def main():
-    app = MainWindow()
+    app = CalculatorWindow()
     app.mainloop()
 
 
