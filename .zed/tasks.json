@@ -7,4 +7,9 @@
     "command": "uv run main.py",
     "tags": ["run"],
   },
+  {
+    "label": "Ruff Check",
+    "command": "ruff check .",
+    "tags": ["lint"],
+  },
 ]
