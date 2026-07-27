@@ -39,6 +39,11 @@ class CalculatorWindow(ctk.CTk):
                 command=lambda b=op_btn: self.__on_operation_button_click(b)
             )
 
+        self.__ui.clear_button.configure(command=self.__on_clear_button_click)
+        self.__ui.period_button.configure(command=self.__on_period_button_click)
+        self.__ui.backspace_button.configure(command=self.__on_backspace_button_click)
+        self.__ui.percent_button.configure(command=self.__on_percent_button_click)
+
     # slots
     def __on_digit_button_click(self, button: ctk.CTkButton):
         current_text = self.__ui.number_line.get()
@@ -80,3 +85,31 @@ class CalculatorWindow(ctk.CTk):
 
             self.__ui.number_line.delete(0, ctk.END)
             self.__ui.number_line.insert(0, new_text)
+
+    def __on_percent_button_click(self):
+        pass
+
+    def __on_period_button_click(self):
+        current_text = self.__ui.number_line.get()
+
+        # Prevent multiple periods in the current number
+        if "." in current_text.split()[-1]:
+            return
+
+        new_text = current_text + "."
+        self.__ui.number_line.delete(0, ctk.END)
+        self.__ui.number_line.insert(0, new_text)
+
+    def __on_clear_button_click(self):
+        self.__ui.number_line.delete(0, ctk.END)
+        self.__ui.number_line.insert(0, "0")
+
+    def __on_backspace_button_click(self):
+        current_text = self.__ui.number_line.get()
+        if len(current_text) > 1:
+            new_text = current_text[:-1]
+        else:
+            new_text = "0"
+
+        self.__ui.number_line.delete(0, ctk.END)
+        self.__ui.number_line.insert(0, new_text)
