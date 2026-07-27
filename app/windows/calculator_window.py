@@ -1,10 +1,14 @@
+import tkinter as tk
+
 import customtkinter as ctk
 
+import app.utils.file_system as fs
 from app.windows.calculator_window_ui import CalculatorWindowUI
 
 
 class CalculatorWindow(ctk.CTk):
     __WINDOW_SIZE = (400, 600)
+    __APP_ICON_PATH = fs.create_path("assets/icons/tools.png")
 
     __ui: CalculatorWindowUI
 
@@ -13,6 +17,7 @@ class CalculatorWindow(ctk.CTk):
         self.title("Calculator")
         self.geometry(f"{self.__WINDOW_SIZE[0]}x{self.__WINDOW_SIZE[1]}")
         self.__center_window()
+        self.__set_app_icon()
 
         self.__ui = CalculatorWindowUI(self)
         self.__setup_slots()
@@ -25,6 +30,10 @@ class CalculatorWindow(ctk.CTk):
         y = (screen_height - self.__WINDOW_SIZE[1]) // 2
         self.geometry(f"{self.__WINDOW_SIZE[0]}x{self.__WINDOW_SIZE[1]}+{x}+{y}")
         self.resizable(False, False)
+
+    def __set_app_icon(self):
+        bitmap = tk.PhotoImage(file=fs.get_abs_file_path(self.__APP_ICON_PATH))
+        self.wm_iconphoto(False, bitmap)
 
     def __setup_slots(self):
         for button in self.__ui.digit_buttons:
