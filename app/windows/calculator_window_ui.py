@@ -50,7 +50,8 @@ class CalculatorWindowUI:
                     text=str(digit),
                     font=font,
                 )
-                button.grid(row=i + 1, column=j, sticky="nsew", padx=5, pady=5)
+                # add numbers in reverse order, so 1 is at the bottom left and 9 is at the top right
+                button.grid(row=3 - i, column=j, sticky="nsew", padx=5, pady=5)
                 self.digit_buttons.append(button)
 
         # Add the 0 button
