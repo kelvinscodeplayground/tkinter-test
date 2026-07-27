@@ -72,7 +72,7 @@ class CalculatorWindow(ctk.CTk):
             try:
                 result = eval(current_text)
                 self.__ui.number_line.delete(0, ctk.END)
-                self.__ui.number_line.insert(0, str(result))
+                self.__ui.number_line.insert(0, self.__normalize_number(result))
             except Exception:
                 self.__ui.number_line.delete(0, ctk.END)
                 self.__ui.number_line.insert(0, "Error")
@@ -134,9 +134,7 @@ class CalculatorWindow(ctk.CTk):
                 new_text = f"{base_str}{found_op}{percentage_value}"
 
                 # Optional: If you want it to evaluate immediately upon clicking %
-                new_text = str(eval(new_text))
-                if float(new_text).is_integer():
-                    new_text = str(int(float(new_text)))
+                new_text = self.__normalize_number(eval(new_text))
 
             self.__ui.number_line.delete(0, ctk.END)
             self.__ui.number_line.insert(0, new_text)
@@ -169,3 +167,16 @@ class CalculatorWindow(ctk.CTk):
 
         self.__ui.number_line.delete(0, ctk.END)
         self.__ui.number_line.insert(0, new_text)
+
+    def __normalize_number(self, number: float) -> str:
+        """
+        Normalize the number to remove unnecessary decimal points. and limit it to only 12 digits in total, not
+        including the decimal point. If the number is too long, round to 12 digits in total.
+        """
+
+        if number.is_integer():
+            return str(int(number))
+        else:
+            # Limit to 12 digits in total, not including the decimal point
+            number_str = f"{number:.12g}"  # This will give a string representation with up to 12 significant digits
+            return number_str
