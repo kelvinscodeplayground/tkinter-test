@@ -4,7 +4,7 @@
 [
   {
     "label": "Run App",
-    "command": "uv run main.py",
+    "command": "uv run tkinter-test",
     "tags": ["run"],
   },
   {

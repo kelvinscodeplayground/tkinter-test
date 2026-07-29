@@ -2,13 +2,13 @@ import tkinter as tk
 
 import customtkinter as ctk
 
-import app.utils.file_system as fs
-from app.windows.calculator_window_ui import CalculatorWindowUI
+import tkinter_test.utils.file_system as fs
+from tkinter_test.windows.calculator_window_ui import CalculatorWindowUI
 
 
 class CalculatorWindow(ctk.CTk):
     __WINDOW_SIZE = (400, 600)
-    __APP_ICON_PATH = fs.create_path("assets/icons/tools.png")
+    __APP_ICON_PATH = fs.create_path("icons/tools.png")
 
     __ui: CalculatorWindowUI
 

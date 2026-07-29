@@ -7,3 +7,9 @@ requires-python = ">=3.14"
 dependencies = [
     "customtkinter>=6.0.0",
 ]
+
+[project.scripts]
+tkinter-test = "tkinter_test.main:main"
+
+[tool.setuptools.package-data]
+tkinter_test = ["assets/**/*"]

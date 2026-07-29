@@ -1,4 +1,6 @@
 import os
+from importlib.resources import as_file, files
+from pathlib import Path
 
 
 def get_abs_file_path(relative_path) -> str:
@@ -18,14 +20,19 @@ def get_abs_file_path(relative_path) -> str:
         relative_path (str): The relative file path.
     """
 
-    # Get the directory of the current script file
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    # Clean up the relative path to ensure it doesn't start with a leading slash
-    relative_path = relative_path.lstrip("/\\")
+    try:
+        # Try using importlib.resources (works in installed packages)
+        asset_files = files("tkinter_test").joinpath("assets")
+        resource_path = asset_files.joinpath(relative_path)
 
-    # Join the script directory with the relative path to get the absolute path
-    abs_path = os.path.abspath(os.path.join(script_dir, "..", "..", relative_path))
-    return abs_path
+        # Convert to actual filesystem path
+        with as_file(resource_path) as path:
+            return str(path)
+    except FileNotFoundError, TypeError:
+        # Fallback for development (loose files)
+        script_dir = Path(__file__).parent.parent
+        abs_path = script_dir / "assets" / relative_path
+        return str(abs_path.resolve())
 
 
 def create_path(path: list[str] | str) -> str:

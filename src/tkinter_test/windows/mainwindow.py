@@ -1,12 +1,12 @@
 import tkinter as tk
 from tkinter import ttk
 
-from app.utils import file_system as fs
+from tkinter_test.utils import file_system as fs
 
 
 class MainWindow(tk.Tk):
     __WINDOW_SIZE = (640, 480)
-    __APP_ICON_PATH = fs.create_path("/assets/icons/tools.png")
+    __APP_ICON_PATH = fs.create_path("/icons/tools.png")
 
     __label: ttk.Label
     __button: ttk.Button

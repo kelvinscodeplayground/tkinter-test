@@ -1,4 +1,4 @@
-from app.windows.calculator_window import CalculatorWindow
+from tkinter_test.windows.calculator_window import CalculatorWindow
 
 # from app.windows.mainwindow import MainWindow
 
